@@ -15,6 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('--lr', type=float, default=1e-5)
     parser.add_argument('--epochs', type=int, default=100)
     args = parser.parse_args()
+    wandb.init(project="my-test-project", entity="pibborn", config=args)
 
     homo_nn_0 = HomoNN(
         name="homo_nn_0",
@@ -65,4 +66,4 @@ if __name__ == '__main__':
     pipeline.fit()
     summary = pipeline.get_component("homo_nn_0").get_summary()
     for loss_value in summary['loss_history']:
-        pass #wandb
+        wandb.log({'loss': loss_value}) 
